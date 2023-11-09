@@ -1,1 +1,1 @@
-# amplify_geo_sawattemita
+# amplify-geo-sawattemita
