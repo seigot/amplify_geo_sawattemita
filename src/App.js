@@ -3,7 +3,6 @@ import { createMap, drawPoints } from "maplibre-gl-js-amplify";
 import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import "maplibre-gl/dist/maplibre-gl.css";
-import axios from "axios";
 
 // Amplify の設定を読み込み
 Amplify.configure(awsconfig);
