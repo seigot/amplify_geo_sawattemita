@@ -1,0 +1,57 @@
+import React, { useEffect } from 'react';
+import { createMap, drawPoints } from "maplibre-gl-js-amplify";
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
+import "maplibre-gl/dist/maplibre-gl.css";
+import axios from "axios";
+
+// Amplify の設定を読み込み
+Amplify.configure(awsconfig);
+
+function App() {
+
+    useEffect(() => {
+	async function initMap() {
+	const map = await createMap({
+	    container: "map", // An HTML Element or HTML element ID to render the map in https://maplibre.org/maplibre-gl-js-docs/api/map/
+	    center: [135.949368, 35.017228], // 東京駅
+	    zoom: 14,
+	});
+	map.on("load", function () {
+	    drawPoints('pointsSource',
+		       [
+			   {
+			       coordinates: [135.949368, 35.017228],
+			       title: 'Point01',
+			       address: 'Main Points',
+			   },
+			   {
+			       coordinates: [135.969368, 35.017228],
+			       title: 'Point02',
+			       address: 'Main2 Points',
+			   },
+		       ],
+		       map,
+		       {
+			   showCluster: true,
+			   unclusteredOptions: {
+			       showMarkerPopup: true,
+			       defaultColor: '#005993'
+			   },
+			   clusterOptions: {
+			       showCount: true,
+			       fillColor: '#FF5773'
+			   },
+		       }
+		      );
+	});
+	}
+	initMap();
+    }, []);
+    return (
+	<div id="map" style={{height: '100vh'}}/>
+    );
+}
+
+export default App;
+
