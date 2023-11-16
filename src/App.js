@@ -40,23 +40,34 @@ function App() {
 		zoom: 14,
 	    });
 	    map.on("load", function () {
-		drawPoints('pointsSource',
+
+		var lat1 = 135.949368
+		var grat1 = 35.017228
+		var lat2 = 135.57586849
+		var grat2 = 34.73740137
+		var lat3 = 135.5617
+		var grat3 = 34.7357
+
+		function draw(source, lat, grat) {
+		    //		drawPoints('pointsSource',
+		    drawPoints(source,
 		     [
 			   {
-			       coordinates: [135.949368, 35.017228],
+//			       coordinates: [135.949368, 35.017228],
+			       coordinates: [lat, grat], 
 			       title: 'Point01',
 			       address: 'Main1 Points',
 			   },
-			   {
-			       coordinates: [135.57586849, 34.73740137],
-			       title: 'Point02',
-			       address: 'Main2 Points',
-			   },
-			   {
-			       coordinates: [135.5617,34.7357],
-			       title: 'Point03',
-			       address: 'Main3 Points',
-			   },
+//			   {
+//			       coordinates: [135.57586849, 34.73740137],
+//			       title: 'Point02',
+//			       address: 'Main2 Points',
+//			   },
+//			   {
+//			       coordinates: [135.5617,34.7357],
+//			       title: 'Point03',
+//			       address: 'Main3 Points',
+//			   },
 		       ],
 		       map,
 		       {
@@ -72,14 +83,19 @@ function App() {
 			   },
 		       }
 		      );
-	    });
+		}
+		draw("pointsource1", lat1, grat1);
+		draw("pointsource2", lat2, grat2);
+		draw("pointsource3", lat3, grat3);
+	    }
+	    );
 	}
 	initMap();
     }, []);
 
     return (
 	<div className="App">
-	    <h1>OshitaKan Stamp Map</h1>
+	    <h1>OshitaKan Stamp Map (All)</h1>
 	    <ul id="locations">
 		<li><b>Kusatsu, Shiga prefecture</b>, kusatsu-shi kusatsu-cho [135.949368,35.017228] </li>
 		<button onClick={onClick1()}> Click </button>
