@@ -83,26 +83,14 @@ function App() {
 //		var source2 = "point" + String(lat2) + String(grat2)
 //		var source3 = "point" + String(lat3) + String(grat3)
 
-		function draw(source, lat, grat) {
-		    //		drawPoints('pointsSource',
+		function draw(source, lati, longi) {
 		    drawPoints(source,
 		     [
 			   {
-//			       coordinates: [135.949368, 35.017228],
-			       coordinates: [lat, grat], 
+			       coordinates: [longi, lati], 
 			       title: 'Point01',
 			       address: 'Main1 Points',
 			   },
-//			   {
-//			       coordinates: [135.57586849, 34.73740137],
-//			       title: 'Point02',
-//			       address: 'Main2 Points',
-//			   },
-//			   {
-//			       coordinates: [135.5617,34.7357],
-//			       title: 'Point03',
-//			       address: 'Main3 Points',
-//			   },
 		       ],
 		       map,
 		       {
@@ -146,11 +134,9 @@ function App() {
 		Object.keys(jsons3).forEach((key) => {
 		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
 		    var sourcename = jsons3[key]["UserId"]
-//		    var lat = jsons3[key]["latitude"]
-//		    var grat = jsons3[key]["longitude"]
-		    var grat = jsons3[key]["latitude"]
-		    var lat = jsons3[key]["longitude"]		    
-		    draw(sourcename, lat, grat);
+		    var lati = jsons3[key]["latitude"]
+		    var longi = jsons3[key]["longitude"]		    
+		    draw(sourcename, lati, longi);
 		});
 		//draw(source1, lat1, grat1);
 		//draw(source2, lat2, grat2);
