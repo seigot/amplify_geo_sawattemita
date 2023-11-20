@@ -24,14 +24,33 @@ Amplify.configure(awsconfig);
 const onClick1 = () => {
 
 };
+axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //'application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+axios
+    .get("https://jsonplaceholder.typicode.com/users/1")
+    .then((response) => {
+	console.log(response);
+    })
+axios
+//    .get("https://jsonplaceholder.typicode.com/users/1")
+    .get("https://301bccgsd2.execute-api.ap-northeast-1.amazonaws.com/location_point_stage/location_point")
+    .then((response) => {
+	console.log(response);
+    })
+    .catch((err) => console.log(err));
+
+
+//var https = require('https');
+console.log("aaa")
 
 function App() {
     //const
-    global.map = createMap({
-        container: "map", // An HTML Element or HTML element ID to render the map in https://maplibre.org/maplibre-gl-js-docs/api/map/
-        center: [135.949368, 35.017228], // 東京駅
-        zoom: 14,
-    });
+//    global.map = createMap({
+//        container: "map", // An HTML Element or HTML element ID to render the map in https://maplibre.org/maplibre-gl-js-docs/api/map/
+//        center: [135.949368, 35.017228], // 東京駅
+//        zoom: 14,
+//    });
     useEffect(() => {
 	async function initMap() {
 	    const map = await createMap({
@@ -41,12 +60,54 @@ function App() {
 	    });
 	    map.on("load", function () {
 
+		console.log("hello2")
+//		var request = require('request');
+//		var options = {
+//		    url: 'http://api.atnd.org/events/?keyword_or=javascript&format=json',
+//		    method: 'GET'
+//		}
+//		request(options, function (error, response, body) {
+//		    console.log(body);
+		//		})
+		// jscではjson http getするのに一手間かかりそうなので以下urlのjsonをそのままコピー
+		// https://jsonplaceholder.typicode.com/posts
+		console.log("test1")
+		const jsons3 = [
+		    {
+			"UserId": "sato_test1",
+			"latitude": 35.017228,
+			"longitude": 135.949368,
+			"timestamp": 1699580120018
+		    },
+		    {
+			"UserId": "RasPi_device1",
+			"latitude": 40,
+			"longitude": 130.1,
+			"timestamp": 1698646805067
+		    },
+		    {
+			"UserId": "sdscsd",
+			"latitude": 24.5,
+			"longitude": 134.3,
+			"timestamp": 1698637464138
+		    }
+		]
+
+		console.log("test2")
+		console.log("----------");
+		Object.keys(jsons3).forEach((key) => {
+		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
+		});
+
 		var lat1 = 135.949368
 		var grat1 = 35.017228
 		var lat2 = 135.57586849
 		var grat2 = 34.73740137
 		var lat3 = 135.5617
 		var grat3 = 34.7357
+		var source1 = "point" + String(lat1) + String(grat1)
+		var source2 = "point" + String(lat2) + String(grat2)
+		var source3 = "point" + String(lat3) + String(grat3)
 
 		function draw(source, lat, grat) {
 		    //		drawPoints('pointsSource',
@@ -84,9 +145,9 @@ function App() {
 		       }
 		      );
 		}
-		draw("pointsource1", lat1, grat1);
-		draw("pointsource2", lat2, grat2);
-		draw("pointsource3", lat3, grat3);
+		draw(source1, lat1, grat1);
+		draw(source2, lat2, grat2);
+		draw(source3, lat3, grat3);
 	    }
 	    );
 	}
