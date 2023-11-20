@@ -72,42 +72,16 @@ function App() {
 		// jscではjson http getするのに一手間かかりそうなので以下urlのjsonをそのままコピー
 		// https://jsonplaceholder.typicode.com/posts
 		console.log("test1")
-		const jsons3 = [
-		    {
-			"UserId": "sato_test1",
-			"latitude": 35.017228,
-			"longitude": 135.949368,
-			"timestamp": 1699580120018
-		    },
-		    {
-			"UserId": "RasPi_device1",
-			"latitude": 40,
-			"longitude": 130.1,
-			"timestamp": 1698646805067
-		    },
-		    {
-			"UserId": "sdscsd",
-			"latitude": 24.5,
-			"longitude": 134.3,
-			"timestamp": 1698637464138
-		    }
-		]
 
-		console.log("test2")
-		console.log("----------");
-		Object.keys(jsons3).forEach((key) => {
-		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
-		});
-
-		var lat1 = 135.949368
-		var grat1 = 35.017228
-		var lat2 = 135.57586849
-		var grat2 = 34.73740137
-		var lat3 = 135.5617
-		var grat3 = 34.7357
-		var source1 = "point" + String(lat1) + String(grat1)
-		var source2 = "point" + String(lat2) + String(grat2)
-		var source3 = "point" + String(lat3) + String(grat3)
+//		var lat1 = 135.949368
+//		var grat1 = 35.017228
+//		var lat2 = 135.57586849
+//		var grat2 = 34.73740137
+//		var lat3 = 135.5617
+//		var grat3 = 34.7357
+//		var source1 = "point" + String(lat1) + String(grat1)
+//		var source2 = "point" + String(lat2) + String(grat2)
+//		var source3 = "point" + String(lat3) + String(grat3)
 
 		function draw(source, lat, grat) {
 		    //		drawPoints('pointsSource',
@@ -145,9 +119,42 @@ function App() {
 		       }
 		      );
 		}
-		draw(source1, lat1, grat1);
-		draw(source2, lat2, grat2);
-		draw(source3, lat3, grat3);
+
+		const jsons3 = [
+		    {
+			"UserId": "sato_test1",
+			"latitude": 35.017228,
+			"longitude": 135.949368,
+			"timestamp": 1699580120018
+		    },
+		    {
+			"UserId": "RasPi_device1",
+			"latitude": 40,
+			"longitude": 130.1,
+			"timestamp": 1698646805067
+		    },
+		    {
+			"UserId": "sdscsd",
+			"latitude": 24.5,
+			"longitude": 134.3,
+			"timestamp": 1698637464138
+		    }
+		]
+
+		console.log("test2")
+		console.log("----------");
+		Object.keys(jsons3).forEach((key) => {
+		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
+		    var sourcename = jsons3[key]["UserId"]
+//		    var lat = jsons3[key]["latitude"]
+//		    var grat = jsons3[key]["longitude"]
+		    var grat = jsons3[key]["latitude"]
+		    var lat = jsons3[key]["longitude"]		    
+		    draw(sourcename, lat, grat);
+		});
+		//draw(source1, lat1, grat1);
+		//draw(source2, lat2, grat2);
+		//draw(source3, lat3, grat3);
 	    }
 	    );
 	}
