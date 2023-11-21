@@ -25,7 +25,7 @@ const onClick1 = () => {
 
 };
 axios.defaults.baseURL = 'http://localhost:3000';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; //'application/json;charset=utf-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'; //'application/x-www-form-urlencoded'; //'application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios
     .get("https://jsonplaceholder.typicode.com/users/1")
@@ -35,6 +35,14 @@ axios
 axios
 //    .get("https://jsonplaceholder.typicode.com/users/1")
     .get("https://301bccgsd2.execute-api.ap-northeast-1.amazonaws.com/location_point_stage/location_point")
+    .then((response) => {
+	console.log(response);
+    })
+    .catch((err) => console.log(err));
+
+axios
+//    .get("https://jsonplaceholder.typicode.com/users/1")
+    .get("https://y3ggbki6xh.execute-api.ap-northeast-1.amazonaws.com/demo/location_point_api_test_takada")
     .then((response) => {
 	console.log(response);
     })
@@ -61,16 +69,6 @@ function App() {
 	    map.on("load", function () {
 
 		console.log("hello2")
-//		var request = require('request');
-//		var options = {
-//		    url: 'http://api.atnd.org/events/?keyword_or=javascript&format=json',
-//		    method: 'GET'
-//		}
-//		request(options, function (error, response, body) {
-//		    console.log(body);
-		//		})
-		// jscではjson http getするのに一手間かかりそうなので以下urlのjsonをそのままコピー
-		// https://jsonplaceholder.typicode.com/posts
 		console.log("test1")
 
 //		var lat1 = 135.949368
@@ -108,7 +106,7 @@ function App() {
 		      );
 		}
 
-		const jsons3 = [
+/*		const jsons3 = [
 		    {
 			"UserId": "sato_test1",
 			"latitude": 35.017228,
@@ -128,16 +126,31 @@ function App() {
 			"timestamp": 1698637464138
 		    }
 		]
-
+*/
 		console.log("test2")
-		console.log("----------");
-		Object.keys(jsons3).forEach((key) => {
-		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
-		    var sourcename = jsons3[key]["UserId"]
-		    var lati = jsons3[key]["latitude"]
-		    var longi = jsons3[key]["longitude"]		    
-		    draw(sourcename, lati, longi);
-		});
+		axios
+		    .get("https://301bccgsd2.execute-api.ap-northeast-1.amazonaws.com/location_point_stage/location_point")
+		    .then((response) => {
+			console.log(response);
+			console.log(response.data)
+			Object.keys(response.data).forEach((key) => {
+			    console.log("key=" + key + ", UserId=" + response.data[key]["UserId"]+ ", latitude=" + response.data[key]["latitude"]+ ", longitude=" + response.data[key]["longitude"]);
+			    var sourcename = response.data[key]["UserId"]
+			    var lati = response.data[key]["latitude"]
+			    var longi = response.data[key]["longitude"]
+			    draw(sourcename, lati, longi);
+			});
+		    })
+		    .catch((err) => console.log(err));
+		
+//		console.log("----------");
+//		Object.keys(jsons3).forEach((key) => {
+//		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
+//		    var sourcename = jsons3[key]["UserId"]
+//		    var lati = jsons3[key]["latitude"]
+//		    var longi = jsons3[key]["longitude"]		    
+//		    draw(sourcename, lati, longi);
+//		});
 		//draw(source1, lat1, grat1);
 		//draw(source2, lat2, grat2);
 		//draw(source3, lat3, grat3);
