@@ -6,12 +6,14 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import axios from "axios";
 //import { drawPoints } from "maplibre-gl-js-amplify";
 import CustomIcon from './logo.svg';
+import CustomIcon2 from './man.png';
 //import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 
 //custom icon
 const icon = new Image(100,100);
 icon.src = CustomIcon;
-
+const icon2 = new Image(100,100);
+icon2.src = CustomIcon2;
 // Amplify の設定を読み込み
 Amplify.configure(awsconfig);
 
@@ -81,7 +83,7 @@ function App() {
 //		var source2 = "point" + String(lat2) + String(grat2)
 //		var source3 = "point" + String(lat3) + String(grat3)
 
-		function draw(source, lati, longi) {
+		function draw(source, lati, longi, stampi) {
 		    drawPoints(source,
 		     [
 			   {
@@ -96,7 +98,8 @@ function App() {
 			   unclusteredOptions: {
 			       showMarkerPopup: true,
 			       defaultColor: '#005993',
-			       markerImageElement: icon,
+			       markerImageElement: stampi,
+//			       activateMarkerImageElement: icon,
 			   },
 			   clusterOptions: {
 			       showCount: true,
@@ -138,7 +141,17 @@ function App() {
 			    var sourcename = response.data[key]["UserId"]
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
-			    draw(sourcename, lati, longi);
+//			    var iconi = icon
+//			    if (sourcename == "tokyo_station") {
+//				var iconi = icon2
+//				console.log("iconi = icon2")
+//				draw(sourcename, lati, longi, icon2);
+//			    }
+//			    else {
+//				var iconi = icon2
+				draw(sourcename, lati, longi, icon);
+//			    }
+//			    draw(sourcename, lati, longi, iconi);
 			});
 		    })
 		    .catch((err) => console.log(err));
