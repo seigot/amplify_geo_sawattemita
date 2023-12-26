@@ -57,7 +57,7 @@ axios
 //var https = require('https');
 console.log("aaa")
 
-function App() {
+function App_sato() {
     useEffect(() => {
 	async function initMap() {
 	    const map = await createMap({
@@ -127,19 +127,19 @@ function App() {
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
                             console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
-//			    if (userid == "sato_test1") {
-//                                draw(sourcename, lati, longi, icon);
-//			    }
+			    if (userid == "sato_test1") {
+                                draw(sourcename, lati, longi, icon);
+			    }
 //			    if (sourcename == "tokyo_station") {
 //				var iconi = icon2
 //				console.log("iconi = icon2")
 //				draw(sourcename, lati, longi, icon2);
 			    //			    }/
-//			    else {
+			    else {
 //				var iconi = icon2
 				//draw(sourcename, lati, longi, icon2);
-				draw(sourcename, lati, longi, icon2);
-//			    }
+//				draw("aaaa", lati, longi, icon);
+			    }
 //			    draw(sourcename, lati, longi, iconi);
 			});
 		    })
@@ -152,23 +152,16 @@ function App() {
     }, []);
 
     return (
-	<div className="App">
-	    <h1>OshitaKan Stamp Map (All)</h1>
+	<div className="App_sato">
+	    <h1>OshitaKan Stamp Map (sato)</h1>
 	    <ul id="locations">
-		<Link to="/">OshitaKan Stamp Map (All) へ移動する</Link> <br/>
-		<Link to="/App_oshitakan">OshitaKan Stamp Challgenge Page へ移動する </Link> <br/>
-		-- UserPage --
-                <li><b>Kusatsu, Shiga prefecture</b>, kusatsu-shi kusatsu-cho [135.949368,35.017228] </li>
-		<Link to="/App_sato">OshitaKan Stamp Map (sato) へ移動する </Link> <br/>
-		<li><b>NishiKadoma, Osaka prefecture</b>, kadoma-shi motomachi [135.57586849,34.73740137]</li>
-		<Link to="/App_takada">OshitaKan Stamp Map (takada) へ移動する </Link> <br/> 
-		<li><b>Moriguchi, Osaka prefecture</b>, moriguchi-shi kawara-cho [135.5617,34.7357]</li>
-		<Link to="/App_adachi">OshitaKan Stamp Map (adachi) へ移動する </Link> <br/> 
+		<li><b>Kusatsu, Shiga prefecture</b>, kusatsu-shi kusatsu-cho [135.949368,35.017228] </li>
+		<Link to="/">OshitaKan Stamp Map (All) へ移動する </Link> <br/> 		
 	    </ul>
 	    <div id="map" style={{height: '100vh'}}/>
 	</div>
     );
 }
 
-export default App;
+export default App_sato;
 
