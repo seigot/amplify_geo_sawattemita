@@ -5,15 +5,17 @@ import awsconfig from './aws-exports';
 import "maplibre-gl/dist/maplibre-gl.css";
 import axios from "axios";
 //import { drawPoints } from "maplibre-gl-js-amplify";
-import CustomIcon from './logo.svg';
-import CustomIcon2 from './man.png';
+import CustomIcon from './sato_sumi.png';
+import CustomIcon2 from './sumi.png';
 //import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 
 //custom icon
 const icon = new Image(100,100);
 icon.src = CustomIcon;
+icon.name = "image1"
 const icon2 = new Image(100,100);
 icon2.src = CustomIcon2;
+icon2.name = "image2"
 // Amplify の設定を読み込み
 Amplify.configure(awsconfig);
 
@@ -55,12 +57,6 @@ axios
 console.log("aaa")
 
 function App() {
-    //const
-//    global.map = createMap({
-//        container: "map", // An HTML Element or HTML element ID to render the map in https://maplibre.org/maplibre-gl-js-docs/api/map/
-//        center: [135.949368, 35.017228], // 東京駅
-//        zoom: 14,
-//    });
     useEffect(() => {
 	async function initMap() {
 	    const map = await createMap({
@@ -69,20 +65,7 @@ function App() {
 		zoom: 14,
 	    });
 	    map.on("load", function () {
-
-		console.log("hello2")
-		console.log("test1")
-
-//		var lat1 = 135.949368
-//		var grat1 = 35.017228
-//		var lat2 = 135.57586849
-//		var grat2 = 34.73740137
-//		var lat3 = 135.5617
-//		var grat3 = 34.7357
-//		var source1 = "point" + String(lat1) + String(grat1)
-//		var source2 = "point" + String(lat2) + String(grat2)
-//		var source3 = "point" + String(lat3) + String(grat3)
-
+		var static_source = "source"
 		function draw(source, lati, longi, stampi) {
 		    drawPoints(source,
 		     [
@@ -99,7 +82,7 @@ function App() {
 			       showMarkerPopup: true,
 			       defaultColor: '#005993',
 			       markerImageElement: stampi,
-//			       activateMarkerImageElement: icon,
+//			       activateMarkerImageElement: stampi,
 			   },
 			   clusterOptions: {
 			       showCount: true,
@@ -138,35 +121,29 @@ function App() {
 			console.log(response.data)
 			Object.keys(response.data).forEach((key) => {
 			    console.log("key=" + key + ", UserId=" + response.data[key]["UserId"]+ ", latitude=" + response.data[key]["latitude"]+ ", longitude=" + response.data[key]["longitude"]);
-			    var sourcename = response.data[key]["UserId"]
+			    var userid = response.data[key]["UserId"]
+			    var sourcename = userid + "_00" + key.toString()
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
-//			    var iconi = icon
+                            console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
+			    if (userid == "sato_test1") {
+                                draw(sourcename, lati, longi, icon);
+			    }
 //			    if (sourcename == "tokyo_station") {
 //				var iconi = icon2
 //				console.log("iconi = icon2")
 //				draw(sourcename, lati, longi, icon2);
-//			    }
-//			    else {
+			    //			    }/
+			    else {
 //				var iconi = icon2
-				draw(sourcename, lati, longi, icon);
-//			    }
+				//draw(sourcename, lati, longi, icon2);
+				draw("aaaa", lati, longi, icon);
+			    }
 //			    draw(sourcename, lati, longi, iconi);
 			});
 		    })
 		    .catch((err) => console.log(err));
 		
-//		console.log("----------");
-//		Object.keys(jsons3).forEach((key) => {
-//		    console.log("key=" + key + ", UserId=" + jsons3[key]["UserId"]+ ", latitude=" + jsons3[key]["latitude"]+ ", longitude=" + jsons3[key]["longitude"]);
-//		    var sourcename = jsons3[key]["UserId"]
-//		    var lati = jsons3[key]["latitude"]
-//		    var longi = jsons3[key]["longitude"]		    
-//		    draw(sourcename, lati, longi);
-//		});
-		//draw(source1, lat1, grat1);
-		//draw(source2, lat2, grat2);
-		//draw(source3, lat3, grat3);
 	    }
 	    );
 	}
