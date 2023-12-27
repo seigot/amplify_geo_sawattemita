@@ -127,7 +127,7 @@ function App_sato() {
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
                             console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
-			    if (userid == "sato_test1") {
+			    if (userid.startsWith("sato")) {
                                 draw(sourcename, lati, longi, icon);
 			    }
 //			    if (sourcename == "tokyo_station") {

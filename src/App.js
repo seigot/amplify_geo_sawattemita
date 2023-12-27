@@ -127,20 +127,7 @@ function App() {
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
                             console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
-//			    if (userid == "sato_test1") {
-//                                draw(sourcename, lati, longi, icon);
-//			    }
-//			    if (sourcename == "tokyo_station") {
-//				var iconi = icon2
-//				console.log("iconi = icon2")
-//				draw(sourcename, lati, longi, icon2);
-			    //			    }/
-//			    else {
-//				var iconi = icon2
-				//draw(sourcename, lati, longi, icon2);
-				draw(sourcename, lati, longi, icon2);
-//			    }
-//			    draw(sourcename, lati, longi, iconi);
+			    draw(sourcename, lati, longi, icon2);
 			});
 		    })
 		    .catch((err) => console.log(err));
@@ -157,7 +144,7 @@ function App() {
 	    <ul id="locations">
 		<Link to="/">OshitaKan Stamp Map (All) へ移動する</Link> <br/>
 		<Link to="/App_challenge">OshitaKan Stamp Challgenge Page へ移動する </Link> <br/>
-		-- UserPage --
+		-- UserPage Enjoy!! --
                 <li><b>Kusatsu, Shiga prefecture</b>, kusatsu-shi kusatsu-cho [135.949368,35.017228] </li>
 		<Link to="/App_sato">OshitaKan Stamp Map (sato) へ移動する </Link> <br/>
 		<li><b>NishiKadoma, Osaka prefecture</b>, kadoma-shi motomachi [135.57586849,34.73740137]</li>

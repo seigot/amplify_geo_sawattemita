@@ -127,7 +127,7 @@ function App_adachi() {
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
                             console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
-			    if (userid == "adachi_test1") {
+			    if (userid.startsWith("adachi")) {
                                 draw(sourcename, lati, longi, icon);
 			    }
 //			    if (sourcename == "tokyo_station") {

@@ -127,7 +127,8 @@ function App_takada() {
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
                             console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
-			    if (userid == "takada_test1") {
+			    //if (userid == "takada_test1") {
+			    if (userid.startsWith("takada")) {
                                 draw(sourcename, lati, longi, icon);
 			    }
 //			    if (sourcename == "tokyo_station") {

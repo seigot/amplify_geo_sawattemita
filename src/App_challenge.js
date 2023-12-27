@@ -75,13 +75,13 @@ function App_challenge() {
 	    });
 	    map.on("load", function () {
 		var static_source = "source"
-		function draw(source, lati, longi, stampi) {
+		function draw(source, userid, lati, longi, stampi) {
 		    drawPoints(source,
 		     [
 			   {
 			       coordinates: [longi, lati], 
 			       title: source,
-			       address: 'Main1 Points',
+			       address: userid,
 			   },
 		       ],
 		       map,
@@ -101,59 +101,63 @@ function App_challenge() {
 		      );
 		}
 
-/*		const jsons3 = [
-		    {
-			"UserId": "sato_test1",
-			"latitude": 35.017228,
-			"longitude": 135.949368,
-			"timestamp": 1699580120018
-		    },
-		    {
-			"UserId": "RasPi_device1",
-			"latitude": 40,
-			"longitude": 130.1,
-			"timestamp": 1698646805067
-		    },
-		    {
-			"UserId": "sdscsd",
-			"latitude": 24.5,
-			"longitude": 134.3,
-			"timestamp": 1698637464138
-		    }
-		]
-*/
-		console.log("test2")
 		axios
 		    .get("https://301bccgsd2.execute-api.ap-northeast-1.amazonaws.com/location_point_stage/location_point")
 		    .then((response) => {
 			console.log(response);
 			console.log(response.data)
 			Object.keys(response.data).forEach((key) => {
+
+			    if ( key+1 < response.length ) {
+				console.log("skip key:", key, ", length-1:", response.data.length-1);
+				return;
+			    }
+			    else {
+				console.log("key:", key, ", length-1:", response.data.length-1);
+			    }
+
 			    console.log("key=" + key + ", UserId=" + response.data[key]["UserId"]+ ", latitude=" + response.data[key]["latitude"]+ ", longitude=" + response.data[key]["longitude"]);
 			    var userid = response.data[key]["UserId"]
 			    var sourcename = userid + "_00" + key.toString()
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
-			    var ButtonHoldDuration = 0.1
-                            console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
+			    var timestamp = response.data[key]["timestamp"]
+			    var ButtonHoldDuration = parseInt(response.data[key]["button_hold_duration_msec"]); //0.1
+                            console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi, ", ButtonHoldDuration:" + ButtonHoldDuration, ", timestamp:" + timestamp);
 
-			    var iconi = icon
-			    if (ButtonHoldDuration < 0.25) {
-				iconi = icon
-			    }
-			    else if (ButtonHoldDuration < 0.5) {
-				iconi = icon1
-			    }
-			    else if (ButtonHoldDuration < 0.75) {
-				iconi = icon2
-			    }
-			    else if (ButtonHoldDuration < 1.0) {
-				iconi = icon3
+			    if (parseInt(ButtonHoldDuration) < 1000) {
+				console.log("test1")
 			    }
 			    else {
-				iconi = icon4
+				console.log("test2")
+				return;
 			    }
-			    draw("static_name", lati, longi, iconi);
+
+			    var iconi = icon
+			    if (parseInt(ButtonHoldDuration) < 250) {
+				var iconi = icon
+				console.log("duration1");
+			    }
+			    else if (parseInt(ButtonHoldDuration) < 500) {
+				var iconi = icon1
+				console.log("duration2");
+			    }
+			    else if (ButtonHoldDuration < 750) {
+				var iconi = icon2
+				console.log("duration3");
+			    }
+			    else if (ButtonHoldDuration < 1000) {
+				var iconi = icon3
+				console.log("duration4")
+			    }
+			    else if (ButtonHoldDuration >= 1000) {
+				var iconi = icon4
+				console.log("duration5");
+			    }
+			    else {
+				console.log("Invalid Number..")
+			    }
+			    draw("stamp point", userid, lati, longi, iconi);
 			});
 		    })
 		    .catch((err) => console.log(err));
