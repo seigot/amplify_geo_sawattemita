@@ -5,18 +5,26 @@ import awsconfig from './aws-exports';
 import "maplibre-gl/dist/maplibre-gl.css";
 import axios from "axios";
 //import { drawPoints } from "maplibre-gl-js-amplify";
-import CustomIcon from './sumi.png';
-import CustomIcon2 from './sumi.png';
+import CustomIcon from './sumi_0.png';
+import CustomIcon1 from './sumi_1.png';
+import CustomIcon2 from './sumi_2.png';
+import CustomIcon3 from './sumi_3.png';
+import CustomIcon4 from './sumi_4.png';
 //import { MapView, LocationSearch } from '@aws-amplify/ui-react-geo';
 import { Link } from "react-router-dom";
 
 //custom icon
 const icon = new Image(100,100);
 icon.src = CustomIcon;
-icon.name = "image1"
+const icon1 = new Image(100,100);
+icon1.src = CustomIcon1;
 const icon2 = new Image(100,100);
 icon2.src = CustomIcon2;
-icon2.name = "image2"
+const icon3 = new Image(100,100);
+icon3.src = CustomIcon3;
+const icon4 = new Image(100,100);
+icon4.src = CustomIcon4;
+
 // Amplify の設定を読み込み
 Amplify.configure(awsconfig);
 
@@ -57,7 +65,7 @@ axios
 //var https = require('https');
 console.log("aaa")
 
-function App() {
+function App_challenge() {
     useEffect(() => {
 	async function initMap() {
 	    const map = await createMap({
@@ -126,21 +134,26 @@ function App() {
 			    var sourcename = userid + "_00" + key.toString()
 			    var lati = response.data[key]["latitude"]
 			    var longi = response.data[key]["longitude"]
+			    var ButtonHoldDuration = 0.1
                             console.log("sourcename:" + sourcename + ", lati:" + lati + ", longi:" + longi);
-//			    if (userid == "sato_test1") {
-//                                draw(sourcename, lati, longi, icon);
-//			    }
-//			    if (sourcename == "tokyo_station") {
-//				var iconi = icon2
-//				console.log("iconi = icon2")
-//				draw(sourcename, lati, longi, icon2);
-			    //			    }/
-//			    else {
-//				var iconi = icon2
-				//draw(sourcename, lati, longi, icon2);
-				draw(sourcename, lati, longi, icon2);
-//			    }
-//			    draw(sourcename, lati, longi, iconi);
+
+			    var iconi = icon
+			    if (ButtonHoldDuration < 0.25) {
+				iconi = icon
+			    }
+			    else if (ButtonHoldDuration < 0.5) {
+				iconi = icon1
+			    }
+			    else if (ButtonHoldDuration < 0.75) {
+				iconi = icon2
+			    }
+			    else if (ButtonHoldDuration < 1.0) {
+				iconi = icon3
+			    }
+			    else {
+				iconi = icon4
+			    }
+			    draw("static_name", lati, longi, iconi);
 			});
 		    })
 		    .catch((err) => console.log(err));
@@ -152,23 +165,16 @@ function App() {
     }, []);
 
     return (
-	<div className="App">
-	    <h1>OshitaKan Stamp Map (All)</h1>
+	<div className="App_challenge">
+	    <h1>OshitaKan Stamp Map (Oshitakan - challenge)</h1>
 	    <ul id="locations">
-		<Link to="/">OshitaKan Stamp Map (All) へ移動する</Link> <br/>
-		<Link to="/App_challenge">OshitaKan Stamp Challgenge Page へ移動する </Link> <br/>
-		-- UserPage --
-                <li><b>Kusatsu, Shiga prefecture</b>, kusatsu-shi kusatsu-cho [135.949368,35.017228] </li>
-		<Link to="/App_sato">OshitaKan Stamp Map (sato) へ移動する </Link> <br/>
-		<li><b>NishiKadoma, Osaka prefecture</b>, kadoma-shi motomachi [135.57586849,34.73740137]</li>
-		<Link to="/App_takada">OshitaKan Stamp Map (takada) へ移動する </Link> <br/> 
-		<li><b>Moriguchi, Osaka prefecture</b>, moriguchi-shi kawara-cho [135.5617,34.7357]</li>
-		<Link to="/App_adachi">OshitaKan Stamp Map (adachi) へ移動する </Link> <br/> 
+		<li><b>NishiKadoma, Osaka prefecture, kadoma-shi motomachi [135.57586849,34.73740137] </b></li>
+		<Link to="/">OshitaKan Stamp Map (All) へ移動する </Link> <br/> 		
 	    </ul>
 	    <div id="map" style={{height: '100vh'}}/>
 	</div>
     );
 }
 
-export default App;
+export default App_challenge;
 
